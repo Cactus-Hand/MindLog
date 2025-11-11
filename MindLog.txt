@@ -1,5 +1,5 @@
 ///==============================================================
-/// MindLog v0.1.0
+/// MindLog v0.2.0
 ///==============================================================
 /*
 Author: CactusHand
@@ -125,13 +125,15 @@ func DownPressed()
 func TogglePressed()
   ?isHidden
     scrollLock.visible = true
-    textWindow.visible = true
     toggleButton.text = ＂X＂
+    textWindow.w = characterLimit+4
+    textWindow.h = lineLimit+2
     isHidden = false
   :
     scrollLock.visible = false
-    textWindow.visible = false
     toggleButton.text = ＂+＂
+    textWindow.w = 3
+    textWindow.h = 2
     isHidden = true
 //
 
@@ -159,8 +161,8 @@ func InitButtons()
   scrollLock = ui.AddButton()
   scrollLock.SetPressed(LockPressed)
   scrollLock.visible = true
-  scrollLock.tcolor  = #ffffff
-  scrollLock.bcolor  = #ee0000
+  scrollLock.tcolor  = #ee0000
+  scrollLock.bcolor  = #dddddd
   scrollLock.text    = ＂||＂
   scrollLock.anchor  = top_left
   scrollLock.dock    = top_left
@@ -170,8 +172,8 @@ func InitButtons()
   toggleButton = ui.AddButton()
   toggleButton.SetPressed(TogglePressed)
   toggleButton.visible = true
-  toggleButton.tcolor  = #ffffff
-  toggleButton.bcolor  = #ee0000
+  toggleButton.tcolor  = #ee0000
+  toggleButton.bcolor  = #dddddd
   toggleButton.text    = ＂X＂
   toggleButton.anchor  = top_left
   toggleButton.dock    = top_left
@@ -250,4 +252,3 @@ func Run()
 /// End of MindLog
 ///==============================================================
 //
-
