@@ -1,5 +1,5 @@
 ///==============================================================
-/// MindLog v0.0.4
+/// MindLog v0.0.6
 ///==============================================================
 /*
 Author: CactusHand
@@ -42,7 +42,7 @@ var scrollDown = null
 var scrollLock = null
 var toggleButton = null
 
-var textLog        = ［＂＂］
+var textLog        = ［］
 var scrollIndex    = 0
 var isScrollLocked = false
 var isHidden       = false
@@ -54,28 +54,34 @@ var isHidden       = false
 func print(message)
   var lastIndex = textLog.Count()-1
   
-  textLog［lastIndex］ += message
-  var line = textLog［lastIndex］
+  var line = message
   
+  ?lastIndex > -1
+    textLog［lastIndex］ += message
+    line = textLog［lastIndex］
+  :
+    textLog.Add(message)
+    lastIndex++
+      
   ?string.Size(line) > characterLimit
-  
-    var newLine = string.Sub(
-    ^line,characterLimit)
-        
-    textLog［lastIndex］ = string.Sub(
-    ^line,0,characterLimit)
-    
-    println(newLine)
+      
+    var newLine = string.Sub(line,characterLimit)
+    textLog［lastIndex］ = string.Sub(line,0,characterLimit)
+    Wrap(newLine)
  //
 
 func println(message)
-  textLog.Add(＂＂)
   print(message)
+  textLog.Add(＂＂)
 //
 
 ///==============================================================
 /// Private Functions
 ///==============================================================
+
+func Wrap(message)
+  textLog.Add(＂＂)
+  print(message)
 
 func InitWindow()
 
@@ -239,7 +245,7 @@ func Run()
   :
     StateController()
 //
-
 ///==============================================================
 /// End of MindLog
 ///==============================================================
+//
