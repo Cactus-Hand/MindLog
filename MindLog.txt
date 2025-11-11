@@ -1,5 +1,5 @@
 ///==============================================================
-/// MindLog v0.0.3
+/// MindLog v0.0.4
 ///==============================================================
 /*
 Author: CactusHand
@@ -23,7 +23,7 @@ log.characterLimit = 30  //optional
 log.Run()
 
 ?time = 1
-  log.println("Hello World!")
+  log.println(＂Hello World!＂)
 
 */
 ///==============================================================
@@ -31,7 +31,7 @@ log.Run()
 ///==============================================================
 
 //--User Changable
-var lineLimit      = 5 //between 2-20
+var lineLimit      = 5  //between 2-20
 var characterLimit = 30 //between 4-60
 
 //--Internal
@@ -42,9 +42,8 @@ var scrollDown = null
 var scrollLock = null
 var toggleButton = null
 
-var textLog        = []
+var textLog        = ［＂＂］
 var scrollIndex    = 0
-
 var isScrollLocked = false
 var isHidden       = false
 
@@ -54,23 +53,23 @@ var isHidden       = false
 
 func print(message)
   var lastIndex = textLog.Count()-1
-  textLog[lastIndex] += message
   
-  var line = textLog[lastIndex]
+  textLog［lastIndex］ += message
+  var line = textLog［lastIndex］
   
   ?string.Size(line) > characterLimit
   
     var newLine = string.Sub(
     ^line,characterLimit)
         
-    textLog[lastIndex] = string.Sub(
+    textLog［lastIndex］ = string.Sub(
     ^line,0,characterLimit)
     
     println(newLine)
  //
 
 func println(message)
-  textLog.Add("")
+  textLog.Add(＂＂)
   print(message)
 //
 
@@ -79,16 +78,6 @@ func println(message)
 ///==============================================================
 
 func InitWindow()
-
-  ?lineLimit < 2
-    lineLimit = 2
-  :?lineLimit > 20
-    lineLimit = 20
-
-  ?characterLimit < 4
-    characterLimit = 4
-  :?characterLimit > 60
-    characterLimit = 60
 
   textWindow = ui.AddPanel()
   textWindow.anchor = top_left
@@ -106,13 +95,13 @@ func LockPressed()
     scrollUp.visible = false
     scrollDown.visible = false
     toggleButton.visible = true
-    scrollLock.text = "||"
+    scrollLock.text = ＂||＂
     isScrollLocked = false
   :
     scrollUp.visible = true
     scrollDown.visible = true
     toggleButton.visible = false
-    scrollLock.text = "<>"
+    scrollLock.text = ＂<>＂
     isScrollLocked = true
 //
 
@@ -130,12 +119,12 @@ func TogglePressed()
   ?isHidden
     scrollLock.visible = true
     textWindow.visible = true
-    toggleButton.text = "X"
+    toggleButton.text = ＂X＂
     isHidden = false
   :
     scrollLock.visible = false
     textWindow.visible = false
-    toggleButton.text = "+"
+    toggleButton.text = ＂+＂
     isHidden = true
 //
 
@@ -143,44 +132,44 @@ func InitButtons()
   scrollUp = ui.AddButton()
   scrollUp.SetPressed(UpPressed)
   scrollUp.visible = false
-  scrollUp.tcolor = #00aa00
-  scrollUp.text = "A"
-  scrollUp.anchor = top_left
-  scrollUp.dock = top_left
-  scrollUp.w = 1
-  scrollUp.h = 1
+  scrollUp.tcolor  = #00aa00
+  scrollUp.text    = ＂A＂
+  scrollUp.anchor  = top_left
+  scrollUp.dock    = top_left
+  scrollUp.w       = 1
+  scrollUp.h       = 1
   
   scrollDown = ui.AddButton()
   scrollDown.SetPressed(DownPressed)
   scrollDown.visible = false
-  scrollDown.tcolor = #00aa00
-  scrollDown.text = "V"
-  scrollDown.anchor = top_left
-  scrollDown.dock = top_left
-  scrollDown.w = 1
-  scrollDown.h = 1
+  scrollDown.tcolor  = #00aa00
+  scrollDown.text    = ＂V＂
+  scrollDown.anchor  = top_left
+  scrollDown.dock    = top_left
+  scrollDown.w       = 1
+  scrollDown.h       = 1
   
   scrollLock = ui.AddButton()
   scrollLock.SetPressed(LockPressed)
   scrollLock.visible = true
-  scrollLock.tcolor = #ffffff
-  scrollLock.bcolor = #ee0000
-  scrollLock.text = "||"
-  scrollLock.anchor = top_left
-  scrollLock.dock = top_left
-  scrollLock.w = 4
-  scrollLock.h = 1
+  scrollLock.tcolor  = #ffffff
+  scrollLock.bcolor  = #ee0000
+  scrollLock.text    = ＂||＂
+  scrollLock.anchor  = top_left
+  scrollLock.dock    = top_left
+  scrollLock.w       = 4
+  scrollLock.h       = 1
   
   toggleButton = ui.AddButton()
   toggleButton.SetPressed(TogglePressed)
   toggleButton.visible = true
-  toggleButton.tcolor = #ffffff
-  toggleButton.bcolor = #ee0000
-  toggleButton.text = "X"
-  toggleButton.anchor = top_left
-  toggleButton.dock = top_left
-  toggleButton.w = 3
-  toggleButton.h = 1
+  toggleButton.tcolor  = #ffffff
+  toggleButton.bcolor  = #ee0000
+  toggleButton.text    = ＂X＂
+  toggleButton.anchor  = top_left
+  toggleButton.dock    = top_left
+  toggleButton.w       = 3
+  toggleButton.h       = 1
 //
 
 func DrawMindLog()
@@ -206,7 +195,7 @@ func UpdatePositions()
 //
 
 func UpdateTextDisplay()
-  var topIndex = textLog.Count() - lineLimit
+  var topIndex = textLog.Count() - lineLimit - 1
   ?topIndex < 0
     topIndex = 0
   :?isScrollLocked
@@ -219,7 +208,7 @@ func UpdateTextDisplay()
     ?i < textLog.Count()
       >`@textWindow.x+1@,
       ^ @textWindow.y+1+i@,
-      ^ @textLog[i+topIndex]@
+      ^ @textLog［i+topIndex］@
 //
 
 func StateController()
@@ -231,6 +220,17 @@ func StateController()
 
 var initialized
 func Run()
+
+  ?lineLimit < 2
+    lineLimit = 2
+  :?lineLimit > 20
+    lineLimit = 20
+
+  ?characterLimit < 4
+    characterLimit = 4
+  :?characterLimit > 60
+    characterLimit = 60
+  
   ?loc.begin | loc.loop
     initialized = 0
   ?!initialized
@@ -242,6 +242,4 @@ func Run()
 
 ///==============================================================
 /// End of MindLog
-
 ///==============================================================
-
