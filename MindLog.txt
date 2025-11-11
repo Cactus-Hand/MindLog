@@ -3,15 +3,28 @@
 ///==============================================================
 /*
 Author: CactusHand
+
 Description: 
   A program to log information from
   the MindStone while playing through a run.
   Seems simple enough!
+
 Features:
 - A sizable console for text logging
 - Buttons for scrolling through logs
 - A button to hide / fold the console
 - print() and println()
+
+To Use:
+
+var log = import (parent folder)/MindLog
+log.lineLimit = 10       //optional
+log.characterLimit = 30  //optional
+log.Run()
+
+?time = 1
+  log.println("Hello World!")
+
 */
 ///==============================================================
 /// Variables
@@ -231,3 +244,4 @@ func Run()
 /// End of MindLog
 
 ///==============================================================
+
